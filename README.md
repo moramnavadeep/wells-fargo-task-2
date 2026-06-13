@@ -1,167 +1,244 @@
-Wells Fargo – Software Engineering Job Simulation (Task 2)
-📌 Overview
+# Wells Fargo Software Engineering Job Simulation – Task 2
 
-This project is part of the Wells Fargo Software Engineering Job Simulation hosted on Forage.
-The objective of this task was to design and implement a data model for a financial advisory system using Spring Boot and Java Persistence API (JPA).
+## Overview
 
-The system models how financial advisors manage clients, client portfolios, and securities.
+This repository contains my solution for **Task 2** of the Wells Fargo Software Engineering Job Simulation hosted on Forage.
 
-🎯 Objectives
+The objective of this task was to design and implement a financial advisory data model using **Spring Boot**, **Java Persistence API (JPA)**, and **Maven**. The system models how financial advisors manage clients, portfolios, and investment securities through well-structured entity relationships.
 
-Design an Entity Relationship Diagram (ERD) for the system
+---
 
-Convert the ERD into JPA entity classes
+## Objectives
 
-Implement correct entity relationships
+* Design an Entity Relationship Diagram (ERD) for a financial advisory system
+* Convert the ERD into JPA entity classes
+* Implement correct database relationships using JPA annotations
+* Build and manage the project using Maven
+* Practice version control using Git and GitHub
 
-Use Maven for build management
+---
 
-Use Git & GitHub for version control
+## Technologies Used
 
-🛠️ Technologies Used
+* Java
+* Spring Boot
+* Java Persistence API (JPA)
+* Maven
+* Git
+* GitHub
+* IntelliJ IDEA / VS Code
 
-Java
+---
 
-Spring Boot
+## System Architecture
 
-Java Persistence API (JPA)
+The application models the relationship between:
 
-Maven
+* Advisors
+* Clients
+* Portfolios
+* Securities
 
-Git & GitHub
+### Entity Relationship Flow
 
-VS Code / IntelliJ IDEA
+```text
+Advisor
+   │
+   ├── One Advisor → Many Clients
+   │
+Client
+   │
+   ├── One Client → One Portfolio
+   │
+Portfolio
+   │
+   ├── One Portfolio → Many Securities
+   │
+Security
+```
 
-🧩 Data Model (Entities)
-1. Advisor
+---
 
-Represents a financial advisor who manages multiple clients.
+## Entity Descriptions
 
-Key fields:
+### Advisor
 
-advisorId (auto-generated)
+Represents a financial advisor responsible for managing multiple clients.
 
-firstName
+**Fields**
 
-lastName
+* advisorId (Auto Generated)
+* firstName
+* lastName
+* address
+* phone
+* email
 
-address
+**Relationship**
 
-phone
+* One Advisor → Many Clients (`@OneToMany`)
 
-email
+---
 
-2. Client
+### Client
 
-Represents a client managed by an advisor.
+Represents an individual client assigned to an advisor.
 
-Key fields:
+**Fields**
 
-clientId (auto-generated)
+* clientId (Auto Generated)
+* firstName
+* lastName
+* address
+* phone
+* email
 
-firstName
+**Relationship**
 
-lastName
+* Many Clients → One Advisor (`@ManyToOne`)
+* One Client → One Portfolio (`@OneToOne`)
 
-address
+---
 
-phone
+### Portfolio
 
-email
+Represents the investment portfolio owned by a client.
 
-Relationship:
+**Fields**
 
-Many clients belong to one advisor (@ManyToOne)
+* portfolioId (Auto Generated)
+* totalValue
 
-3. Portfolio
+**Relationship**
 
-Represents a client’s investment portfolio.
+* One Portfolio → One Client (`@OneToOne`)
+* One Portfolio → Many Securities (`@OneToMany`)
 
-Key fields:
+---
 
-portfolioId (auto-generated)
+### Security
 
-totalValue
+Represents an investment asset held within a portfolio.
 
-Relationship:
+**Fields**
 
-One portfolio belongs to one client (@OneToOne)
+* securityId (Auto Generated)
+* name
+* category
+* purchaseDate
+* purchasePrice
+* quantity
 
-4. Security
+**Relationship**
 
-Represents an investment held within a portfolio.
+* Many Securities → One Portfolio (`@ManyToOne`)
 
-Key fields:
+---
 
-securityId (auto-generated)
+## Entity Relationship Summary
 
-name
+| Relationship         | Type        |
+| -------------------- | ----------- |
+| Advisor → Client     | One-to-Many |
+| Client → Advisor     | Many-to-One |
+| Client → Portfolio   | One-to-One  |
+| Portfolio → Security | One-to-Many |
+| Security → Portfolio | Many-to-One |
 
-category
+---
 
-purchaseDate
+## Project Structure
 
-purchasePrice
+```text
+src/
+└── main/
+    └── java/
+        └── com/
+            └── wellsfargo/
+                └── counselor/
+                    └── entity/
+                        ├── Advisor.java
+                        ├── Client.java
+                        ├── Portfolio.java
+                        └── Security.java
+```
 
-quantity
+---
 
-Relationship:
+## Building the Project
 
-Many securities belong to one portfolio (@ManyToOne)
+### Prerequisites
 
-🔗 Entity Relationships Summary
+* Java JDK installed
+* Maven installed
+* Git installed
 
-Advisor → Client : One-to-Many
+### Clone Repository
 
-Client → Portfolio : One-to-One
-
-Portfolio → Security : One-to-Many
-
-▶️ How to Build the Project
-Prerequisites
-
-Java JDK installed
-
-Git installed
-
-Steps
-# Navigate to project directory
+```bash
+git clone <repository-url>
 cd wells-fargo-task-2
+```
 
-# (Temporary workaround for Windows if JAVA_HOME is not set)
+### Build Project
+
+```bash
+mvn clean install
+```
+
+### Windows (If JAVA_HOME is not configured)
+
+```bash
 set JAVA_HOME=C:\Program Files\Java\jdk-22
-
-# Build the project
 mvnw.cmd clean install
+```
 
+### Expected Output
 
-Expected output:
-
+```text
 BUILD SUCCESS
+```
 
-📂 Project Structure
-src/main/java/com/wellsfargo/counselor/entity
- ├── Advisor.java
- ├── Client.java
- ├── Portfolio.java
- └── Security.java
+---
 
-✅ What Was Accomplished
+## Key Learning Outcomes
 
-Designed a clean relational data model
+Through this simulation, I gained practical experience in:
 
-Implemented JPA entities with correct annotations
+* Database modeling and design
+* Entity Relationship Diagram (ERD) creation
+* JPA entity mapping
+* Spring Boot project structure
+* Maven build management
+* Object-relational mapping (ORM)
+* Version control with Git and GitHub
 
-Configured entity relationships
+---
 
-Successfully built the project using Maven
+## Accomplishments
 
-Pushed the completed solution to GitHub
+✔ Designed a complete financial advisory data model
 
-📜 Certificate
+✔ Implemented entity relationships using JPA annotations
 
-This project was completed as part of the Wells Fargo Software Engineering Job Simulation on Forage.
+✔ Created maintainable and scalable entity classes
 
-👤 Author
+✔ Successfully built the project using Maven
 
-Moram Navadeep
+✔ Managed source code using Git and GitHub
+
+---
+
+## About the Simulation
+
+This project was completed as part of the **Wells Fargo Software Engineering Job Simulation** provided through Forage, where participants gain practical experience solving real-world software engineering tasks inspired by industry workflows.
+
+---
+
+## Author
+
+**Moram Navadeep**
+
+* Computer Science Student
+* Aspiring AI Researcher & Software Engineer
+* Passionate about Backend Development, AI Systems, and Financial Technology
